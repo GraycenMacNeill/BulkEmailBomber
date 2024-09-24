@@ -1,12 +1,19 @@
 # Bulk Email Bomber
-Bulk Email Bomber (BEB) is a tool designed to efficiently send large volumes of emails using Gmail to a specific recipient. It can be used for purposes such as mass notifications or testing a company's email infrastructure.
+Bulk Email Bomber (BEB) is a general use tool designed to efficiently send large volumes of emails using Gmail to a specific recipient.
 
-BEB is a simple solution to testing large scale iinfrastructure which sends emails at a rapid pace.
+BEB allows users to mass sendings of bulk email campaigns with randomized subject lines and body content. This feature helps to avoid email stacking and prevent emails from being flagged as spam, ultimately improving deliverability and engagement. By customizing their campaigns, users can tailor their messages to specific needs and increase the likelihood of reaching their target audience.
 
 - [Showcase Video](https://youtube.com/@GraycenMacNeill)<br >
 
-BEB allows users xto customize the subject line with random words, letters, and symbols so that emails do not stack. Body content can also be randomzed
-with words, letters, and symbols for further variation.
+## Features:
+
+- Choose from pre-defined templates: Select from a variety of pre-designed templates which include ascii code symbols, letters, numbers, and words.
+
+- Generates randomized subject lines: Automatically create unique subject lines using a combination of random words, letters, and symbols. This helps to avoid email stacking and improves deliverability.
+
+- Generates randomized body content: Automatically create unique body content using a combination of random words, letters, and symbols. This can help to prevent emails from being flagged as spam and increase engagement.
+
+
 
 > [!IMPORTANT]
 > ### Limitations:
@@ -23,7 +30,7 @@ with words, letters, and symbols for further variation.
 
 
 ### ⌘ How to Set Up the Program
-- [Bulk Email Bomber Setup Tutorial](https://youtube.com/@GraycenMacNeill)<br >
+- [Video Tutorial: Bulk Email Bomber Setup](https://youtube.com/@GraycenMacNeill)<br >
   
 1) Make sure Java is installed on your personal device or server
 2) Download the .jar file and place it in a folder
@@ -31,11 +38,13 @@ with words, letters, and symbols for further variation.
 4) Generate a Google App Password key (required for program to function)
 
 ### ⌘ How to Set up a Google App Password
-- [How to Set up a Google App Passwords](https://youtube.com/@GraycenMacNeill)<br >
+- [Video Tutorial: Google App Passwords](https://youtube.com/@GraycenMacNeill)<br >
 
-To use this program, you'll need a Google App Password. This is a secure key that lets the program access your Gmail account without requiring your actual Google password.
+To use this program, you'll need a Google App Password. This is a secure key that lets the program access your Gmail account without requiring your actual Google password. Create one with this link:
 
-Create one here: https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
+- https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
 
-### ❖ Downloads
+### Downloads
 No downloads are available just yet!
+
+
