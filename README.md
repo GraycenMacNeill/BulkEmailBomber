@@ -29,7 +29,7 @@ BEB allows users to mass sendings of bulk email campaigns with randomized subjec
 #
 
 
-### ⌘ How to Set Up the Program
+### How to Set Up the Program
 - [Video Tutorial: Bulk Email Bomber Setup](https://youtube.com/@GraycenMacNeill)<br >
   
 1) Make sure Java is installed on your personal device or server
@@ -37,7 +37,7 @@ BEB allows users to mass sendings of bulk email campaigns with randomized subjec
 3) Double click on the .jar file in the folder to open up the program terminal
 4) Generate a Google App Password key (required for program to function)
 
-### ⌘ How to Set up a Google App Password
+### How to Set up a Google App Password
 - [Video Tutorial: Google App Passwords](https://youtube.com/@GraycenMacNeill)<br >
 
 To use this program, you'll need a Google App Password. This is a secure key that lets the program access your Gmail account without requiring your actual Google password. Create one with this link:
