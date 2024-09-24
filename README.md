@@ -1,7 +1,7 @@
 # Bulk Email Bomber
 Bulk Email Bomber (BEB) is a general use tool designed to efficiently send large volumes of emails using Gmail to a specific recipient.
 
-BEB allows users to mass sendings of bulk email campaigns with randomized subject lines and body content. This feature helps to avoid email stacking and prevent emails from being flagged as spam, ultimately improving deliverability and engagement. By customizing their campaigns, users can tailor their messages to specific needs and increase the likelihood of reaching their target audience.
+BEB allows users to mass sendings of bulk email campaigns with randomized subject lines and body content. This feature helps to avoid email stacking and prevent emails from being flagged as spam, ultimately improving deliverability and engagement. Send 100+ emails in just five minutes with Bulk Email Bomber, instead of spending hours manually!
 
 - [Showcase Video](https://youtube.com/@GraycenMacNeill)<br >
 
