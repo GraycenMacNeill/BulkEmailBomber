@@ -1,19 +1,27 @@
 # Bulk Email Bomber
-Bulk Email Bomber (BEB) is a tool designed to efficiently send large volumes of emails using Gmail to a specific recipient. It can be used for purposes such as mass notifications or testing a company's email infrastructure.
+Bulk Email Bomber (BEB) is a general use tool designed to efficiently send large volumes of emails using Gmail to a specific recipient.
+
+BEB allows users to mass sendings of bulk email campaigns with randomized subject lines and body content. This feature helps to avoid email stacking and prevent emails from being flagged as spam, ultimately improving deliverability and engagement. Send 100+ emails in just five minutes with Bulk Email Bomber, instead of spending hours manually!
 
 - [Showcase Video](https://youtube.com/@GraycenMacNeill)<br >
 
-BEB allows users to customize the subject line with random words, letters, and symbols so that emails do not stack. Body content can also be randomzed
-with words, letters, and symbols for further variation.
+## Features:
+
+- Choose from pre-defined templates: Select from a variety of pre-designed templates which include ascii code symbols, letters, numbers, and words.
+
+- Generates randomized subject lines: Automatically create unique subject lines using a combination of random words, letters, and symbols. This helps to avoid email stacking and improves deliverability.
+
+- Generates randomized body content: Automatically create unique body content using a combination of random words, letters, and symbols. This can help to prevent emails from being flagged as spam and increase engagement.
+
+
 
 > [!IMPORTANT]
 > ### Limitations:
-> - Daily limit: 500 emails every 24 hours.
-> - Spam risk: Sending more than 100 emails at once could send them to the recipients spam folder.
+> - Limited to 500 emails every 24 hours to prevent spam and ensure fair usage.
+> - Maximum recipients per email: Gmail has a limit on the number of recipients you can include in a single email, including the "To," "CC," and "BCC" fields. This limit can vary but is typically around 100 recipients.
+> - Blocked recipients: If you frequently send emails to recipients who mark them as spam, Gmail may limit your ability to send to those addresses.- Spam risk: Sending more than 100 emails at once could send them to the recipients spam folder.
 > ### Security Concerns:
-> - Secure Storage: Your Google App Password is stored securely only on your device.
-> - No Data Sharing: Your data is not shared with any third-party entities when using the program. <br />
-> <sup>Rest assured, your data is safe on your own personal device. Nobody else except from you can access it directly.</sup>
+> - Your Google App Password is stored securely on Google cloud services ensuring the key remains private. Only users with full access to your Google account can use the App Password. Your Google password is personal and should be kept secret. Sharing it can lead to unauthorized access to your account.
 
 #
 > [!CAUTION]
@@ -21,20 +29,22 @@ with words, letters, and symbols for further variation.
 #
 
 
-### ⌘ How to Set Up the Program
-- [Bulk Email Bomber Setup Tutorial](https://youtube.com/@GraycenMacNeill)<br >
+### How to Set Up the Program
+- [Video Tutorial: Bulk Email Bomber Setup](https://youtube.com/@GraycenMacNeill)<br >
   
 1) Make sure Java is installed on your personal device or server
 2) Download the .jar file and place it in a folder
 3) Double click on the .jar file in the folder to open up the program terminal
 4) Generate a Google App Password key (required for program to function)
 
-### ⌘ How to Set up a Google App Password
-- [How to Set up a Google App Passwords](https://youtube.com/@GraycenMacNeill)<br >
+### How to Set up a Google App Password
+- [Video Tutorial: Google App Passwords](https://youtube.com/@GraycenMacNeill)<br >
 
-To use this program, you'll need a Google App Password. This is a secure key that lets the program access your Gmail account without requiring your actual Google password.
+To use this program, you'll need a Google App Password. This is a secure key that lets the program access your Gmail account without requiring your actual Google password. Create one with this link:
 
-Create one here: https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
+- https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
 
-### ❖ Downloads
+### Downloads
 No downloads are available just yet!
+
+
