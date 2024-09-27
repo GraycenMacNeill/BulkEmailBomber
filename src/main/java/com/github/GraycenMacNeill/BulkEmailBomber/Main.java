@@ -3,6 +3,11 @@
     The emails contain randomized text, and the recipient's email address is validated using JavaMail API.
     Note: A Gmail App Password is required to send emails. An alternative method is to use SMTP, but this
     method requires more setup and would be a pain in the long run.
+
+    REMEMBER TO SET UP THE REQUIRED DEPENDENCIES:
+    - Add the JavaMail API to your project's classpath. You can download it from https://java.sun.com/products/java-mail/.
+    - Add the javax.activation.jar file to your project's classpath. You can download it from https://mvnrepository.com/artifact/javax.activation/activation.
+
 ----------------------------------------------------------------------------------------------------------------------*/
 
 // TODO - Create a third party interface instead of program being console based so that the program can be integrated into a larger system.
