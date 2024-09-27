@@ -45,6 +45,6 @@ To use this program, you'll need a Google App Password. This is a secure key tha
 - https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237
 
 ### Downloads
-No downloads are available just yet!
+Java Mail API: https://www.oracle.com/java/technologies/javamail-releases.html
 
 
