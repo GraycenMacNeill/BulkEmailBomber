@@ -113,7 +113,12 @@ public class Main {
     // Function to display program information and legal cautions
 // To prevent misuse, the program displays a warning message and a link to the GitHub repository.
     public static void displayInformation() {
-        System.out.println("https://github.com/GraycenMacNeill/BulkEmailBomber");
+        System.out.println("\u001B[31m" + "╔╗ ╦ ╦╦  ╦╔═  ╔═╗╔╦╗╔═╗╦╦    ╔╗ ╔═╗╔╦╗╔╗ ╔═╗╦═╗\n" +
+                "╠╩╗║ ║║  ╠╩╗  ║╣ ║║║╠═╣║║    ╠╩╗║ ║║║║╠╩╗║╣ ╠╦╝\n" +
+                "╚═╝╚═╝╩═╝╩ ╩  ╚═╝╩ ╩╩ ╩╩╩═╝  ╚═╝╚═╝╩ ╩╚═╝╚═╝╩╚═");
+        System.out.println("\u001B[0m" + "\nBulk Email Bomber (BEB) is a general use tool designed to efficiently send ");
+        System.out.println("large volumes of emails using Gmail to a specific recipient.");
+        System.out.println("\nhttps://github.com/GraycenMacNeill/BulkEmailBomber");
         System.out.println("\u001B[31m" + "\nWARNING: This application is designed for educational and experimental use only. Any unauthorized or");
         System.out.println("malicious use of this code is strictly prohibited and may violate applicable data protection laws,");
         System.out.println("such as the CAN-SPAM Act. Such misuse could result in legal penalties, depending on your jurisdiction.\n" + "\u001B[0m");
