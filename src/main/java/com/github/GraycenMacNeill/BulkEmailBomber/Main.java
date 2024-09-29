@@ -5,7 +5,17 @@
     method requires more setup and would be a pain in the long run.
 
     REMEMBER TO SET UP THE REQUIRED DEPENDENCIES:
-    - Add the JavaMail API to your project's classpath. You can download it from https://www.oracle.com/java/technologies/javamail-releases.html.
+    - Add the JavaMail API to your project's classpath.
+    JavaMail API: https://www.oracle.com/java/technologies/javamail-releases.html.
+
+    (Optional) - To use SMTP instead of JavaMail API, follow these steps:
+    - Add the JavaMail SMTP Transport API to your project's classpath.
+    JavaMail SMTP Transport API: https://mvnrepository.com/artifact/com.sun.mail/smtp.
+
+    SETUP GMAIL ACCOUNT:
+    - Go to your Gmail account settings.
+    - Set up a Gmail account and enable "App Passwords" to allow access to your account via JavaMail API.
+    (This is a very secure method and other persons cannot access your Gmail unless you share the code)
 ----------------------------------------------------------------------------------------------------------------------*/
 
 // TODO - Create a third party interface instead of program being console based so that the program can be integrated into a larger system.
@@ -29,15 +39,16 @@ public class Main {
         // Creates a new UserInteraction object to get user input
         UserInteraction userInteraction = new UserInteraction();
 
-        String senderEmail = userInteraction.getSenderEmail(); // Get sender email
-        String recipientEmail = userInteraction.getRecipientEmail(); // Get the recipient email
-        String password = userInteraction.getPassword(); // Get the Gmail App Password
-        int numberOfEmailsToSend = userInteraction.getNumberOfEmailsToSend(); // Get number of emails to send
+        // Get user input for the required fields.
+        String senderEmail = userInteraction.getSenderEmail(); // STEP 1: Get sender email
+        String password = userInteraction.getPassword(); // STEP 2: Get the Gmail App Password
+        String recipientEmail = userInteraction.getRecipientEmail(); // STEP 3: Get the recipient email
+        int numberOfEmailsToSend = userInteraction.getNumberOfEmailsToSend(); // STEP 4: Get number of emails to send
 
         // The list of different ASCII characters, letters, numbers, and symbols, and words for
         // the body and subject of the emails.
-        String subjectBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☞ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
-        String bodyBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☞ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
+        String subjectBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
+        String bodyBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
 
         // Gmail configuration (use Gmail's implemented App Password)
         // For security reasons, never hardcode your credentials in your code!!!
@@ -53,7 +64,7 @@ public class Main {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return
-                new PasswordAuthentication(senderEmail, password); // Use the password variable
+                        new PasswordAuthentication(senderEmail, password); // Use the password variable
             }
         });
 
@@ -67,7 +78,7 @@ public class Main {
                 message.setFrom(new InternetAddress(recipientEmail));
 
                 // Generate random subject and body variations
-                // Consider using a more efficient data structure or algorithm for generating random strings
+                // This could be optimized by using a more efficient data structure or algorithm for generating random strings
                 String randomSubject = generateRandomString(subjectBase);
                 String randomBody = generateRandomString(bodyBase);
 
@@ -84,26 +95,23 @@ public class Main {
             } catch (MessagingException e) {
                 System.err.println("An error occurred while sending the email: " + e.getMessage());
             }
-
         }
 
     }
 
     // Function to generate random string with a specified base string
-    // This function generates a random string of characters from the provided
-    // variables baseBody and baseSubject.
-    public static String generateRandomString(String baseString) {
-        int randomLength = ThreadLocalRandom.current().nextInt(baseString.length() + 3); // Generate random length up to 5 characters longer than base
+    public static String generateRandomString(String base) {
+        int randomLength = ThreadLocalRandom.current().nextInt(base.length() + 3); // Generate random length up to 5 characters longer than base
         StringBuilder randomStringBuilder = new StringBuilder(randomLength);
         for (int j = 0; j < randomLength; j++) {
-            int randomIndex = ThreadLocalRandom.current().nextInt(baseString.length());
-            randomStringBuilder.append(baseString.charAt(randomIndex));
+            int randomIndex = ThreadLocalRandom.current().nextInt(base.length());
+            randomStringBuilder.append(base.charAt(randomIndex));
         }
         return randomStringBuilder.toString();
     }
 
     // Function to display program information and legal cautions
-    // To prevent misuse, the program displays a warning message and a link to the GitHub repository.
+// To prevent misuse, the program displays a warning message and a link to the GitHub repository.
     public static void displayInformation() {
         System.out.println("https://github.com/GraycenMacNeill/BulkEmailBomber");
         System.out.println("\u001B[31m" + "\nWARNING: This application is designed for educational and experimental use only. Any unauthorized or");
