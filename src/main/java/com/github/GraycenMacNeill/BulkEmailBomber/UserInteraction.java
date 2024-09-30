@@ -2,10 +2,6 @@ package com.github.GraycenMacNeill.BulkEmailBomber;
 
 import java.util.Scanner;
 
-// TODO - Add more validation and error handling for user input.
-// TODO - Add a while loop for continuous input until valid data is provided.
-
-
 public class UserInteraction {
 
     private static final String RED = "\u001B[31m";
@@ -29,7 +25,7 @@ public class UserInteraction {
     }
 
     public String getPassword() {
-        System.out.print(WHITE + "Enter your Gmail App Password: ");
+        System.out.print(WHITE + "\nEnter your Gmail App Password: ");
         return input.nextLine();
     }
 
